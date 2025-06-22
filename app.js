@@ -12,8 +12,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/send-sms', async (req, res) => {
-  const { number, otp } = req.body;
-
+  const { phoneNumber, otp } = req.body;
   try {
     const response = await axios.post(
       'https://www.fast2sms.com/dev/bulkV2',
@@ -22,7 +21,7 @@ app.post('/send-sms', async (req, res) => {
         message: process.env.TEMPLATE_ID,
         variables_values: otp,
         route: 'dlt',
-        numbers: number
+        numbers: phoneNumber
       },
       {
         headers: {
