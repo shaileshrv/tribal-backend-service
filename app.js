@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
-  res.send('Welcome to the SMS Sending Service');
+  res.status(200).json({"text": 'Welcome to the SMS Sending Service'});
 });
 
 app.post('/send-sms', async (req, res) => {
