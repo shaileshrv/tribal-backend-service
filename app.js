@@ -12,8 +12,16 @@ app.get('/', (req, res) => {
 });
 
 app.post('/send-sms', async (req, res) => {
-  const { phoneNumber, otp } = req.body;
+  const generateOTP = (length = 6) => {
+    let otp = '';
+    for (let i = 0; i < length; i++) {
+      otp += Math.floor(Math.random() * 10); // digits 0-9
+    }
+    return otp;
+  }
+  const { phoneNumber } = req.body;
   try {
+    const otp = generateOTP();
     const response = await axios.post(
       'https://www.fast2sms.com/dev/bulkV2',
       {
@@ -30,7 +38,7 @@ app.post('/send-sms', async (req, res) => {
       }
     );
 
-    res.status(200).json({ success: true, data: response.data });
+    res.status(200).json({ success: true, data: response.data, otp: otp });
   } catch (error) {
     res.status(500).json({
       success: false,
