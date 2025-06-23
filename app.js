@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/check-api-service', (req, res) => {
   res.status(200).json({"text": 'Welcome to the SMS Sending Service'});
 });
 
